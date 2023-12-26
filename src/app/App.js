@@ -1,19 +1,29 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+import Root from '../pages/Root'
 import Index from '../pages/Index'
 import EmployeeList from '../pages/EmployeeList'
-
-import './App.css'
+import Error from '../pages/Error'
 
 // Creating a browser router with defined routes and associated components
 const router = createBrowserRouter([
 	{
 		path: '/',
-		element: <Index />,
-	},
-	{
-		path: '/employees',
-		element: <EmployeeList />,
+		element: <Root />,
+		children: [
+			{
+				index: true,
+				element: <Index />,
+			},
+			{
+				path: '/employees',
+				element: <EmployeeList />,
+			},
+			{
+				path: '*',
+				element: <Error />,
+			},
+		],
 	},
 ])
 
