@@ -14,6 +14,7 @@ import { headersEmployeesTable } from '../../data/headersEmployeesTable'
 import Table from '../../utils/TableTools/Table'
 
 import styled from 'styled-components'
+import { colors } from '../../utils/style/colors'
 
 export default function EmployeesTable() {
 	const {

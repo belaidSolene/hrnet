@@ -8,7 +8,7 @@ const Table = ({
 	page,
 }) => {
 	return (
-		<table {...getTableProps()} className='display responsive-table'>
+		<table {...getTableProps()}>
 			<thead>
 				{headerGroups.map((headerGroup) => (
 					<tr {...headerGroup.getHeaderGroupProps()}>

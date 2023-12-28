@@ -1,11 +1,20 @@
 import { useForm, Controller } from 'react-hook-form'
+import {
+	formatString,
+	formatDate,
+	formatState,
+	formatDepartment,
+} from '../../utils/formattedData/format'
+import { useEmployeeContext } from '../../app/EmployeeContext'
+
+import CustomDatePicker from '../../components/DatePicker'
 import Select from 'react-select'
 
 import { states } from '../../data/states'
 import { departments } from '../../data/departments'
 
 import styled from 'styled-components'
-import CustomDatePicker from '../../components/DatePicker'
+import { colors } from '../../utils/style/colors'
 
 export default function AddEmployeeForm() {
 	const {
@@ -14,99 +23,192 @@ export default function AddEmployeeForm() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm()
+	const { dispatch } = useEmployeeContext()
+
+	const errorEmptyField = 'Please fill out this field.'
+
+	console.log(errors.zipCode)
 
 	const submitForm = (data) => {
-		console.log(data)
+		const employee = {
+			firstName: formatString(data.firstName),
+			lastName: formatString(data.lastName),
+			birthDate: formatDate(data.birthDate),
+			startDate: formatDate(data.startDate),
+			street: data.street,
+			city: data.city,
+			state: formatState(data.state),
+			zipCode: data.zipCode,
+			department: formatDepartment(data.department),
+		}
+
+		dispatch({ type: 'ADD_EMPLOYEE', employee })
 	}
+
 	return (
-		<form onSubmit={handleSubmit(submitForm)} noValidate>
-			<WrapperInputs>
-				<label htmlFor='firstName'>First Name</label>
-				<input
-					{...register('firstName', {
-						required: true,
-					})}
-					type='text'
-					id='firstName'
-					name='firstName'
-				/>
-
-				<label htmlFor='lastName'>Last Name</label>
-				<input
-					{...register('lastName', { required: true })}
-					type='text'
-					id='lastName'
-					name='lastName'
-				/>
-			</WrapperInputs>
-
-			<WrapperInputs>
-				<label htmlFor='birthDate'>Date of Birth</label>
-				<CustomDatePicker
-					control={control}
-					name={'birthDate'}
-				/>
-
-				<label htmlFor='startDate'>Start Date</label>
-				<CustomDatePicker
-					control={control}
-					name={'startDate'}
-				/>
-			</WrapperInputs>
-
-			<WrapperInputs>
-				<label htmlFor='street'>Street</label>
-				<input
-					{...register('street', { required: true })}
-					type='text'
-					id='street'
-					name='street'
-				/>
-
-				<label htmlFor='city'>City</label>
-				<input
-					{...register('city', { required: true })}
-					type='text'
-					id='city'
-					name='city'
-				/>
-			</WrapperInputs>
-
-			<WrapperInputs>
-				<label htmlFor='state' className='state-label'>
-					State
-				</label>
-
-				<Controller
-					control={control}
-					name='state'
-					render={({ field }) => (
-						<Select
-							{...field}
-							options={states.map(
-								({ name, code }) => ({
-									value: code,
-									label: name,
-								}),
-							)}
-							placeholder='Select a State...'
-						/>
+		<Form onSubmit={handleSubmit(submitForm)} noValidate>
+			<WrapperLine>
+				<WrapperInput>
+					<label htmlFor='firstName'>First Name</label>
+					<input
+						{...register('firstName', {
+							required: errorEmptyField,
+						})}
+						type='text'
+						id='firstName'
+						name='firstName'
+					/>
+					{errors.firstName && (
+						<ErrorMessage>
+							{errors.firstName.message}
+						</ErrorMessage>
 					)}
-				/>
+				</WrapperInput>
 
-				<label htmlFor='zipCode'>Zip Code</label>
-				<input
-					{...register('zipCode', {
-						required: true,
-						pattern: /^\d{5}(-\d{4})?$/i,
-					})}
-					type='text'
-					id='zipCode'
-					name='zipCode'
-				/>
-			</WrapperInputs>
+				<WrapperInput>
+					<label htmlFor='lastName'>Last Name</label>
+					<input
+						{...register('lastName', {
+							required: errorEmptyField,
+						})}
+						type='text'
+						id='lastName'
+						name='lastName'
+					/>
+					{errors.lastName && (
+						<ErrorMessage>
+							{errors.lastName.message}
+						</ErrorMessage>
+					)}
+				</WrapperInput>
+			</WrapperLine>
 
-			<div>
+			<WrapperLine>
+				<WrapperInput>
+					<label htmlFor='birthDate'>
+						Date of Birth
+					</label>
+					<CustomDatePicker
+						control={control}
+						name={'birthDate'}
+					/>
+				</WrapperInput>
+
+				<WrapperInput>
+					<label htmlFor='startDate'>Start Date</label>
+					<CustomDatePicker
+						control={control}
+						name={'startDate'}
+					/>
+				</WrapperInput>
+			</WrapperLine>
+
+			<WrapperAdress>
+				<legend>Address</legend>
+				<WrapperLine>
+					<WrapperInput>
+						<label htmlFor='street'>Street</label>
+						<input
+							{...register('street', {
+								required: errorEmptyField,
+							})}
+							type='text'
+							id='street'
+							name='street'
+						/>
+						{errors.street && (
+							<ErrorMessage>
+								{errors.street.message}
+							</ErrorMessage>
+						)}
+					</WrapperInput>
+
+					<WrapperInput>
+						<label htmlFor='city'>City</label>
+						<input
+							{...register('city', {
+								required: errorEmptyField,
+							})}
+							type='text'
+							id='city'
+							name='city'
+						/>
+						{errors.city && (
+							<ErrorMessage>
+								{errors.city.message}
+							</ErrorMessage>
+						)}
+					</WrapperInput>
+				</WrapperLine>
+
+				<WrapperLine>
+					<WrapperInput>
+						<label
+							htmlFor='state'
+							className='state-label'
+						>
+							State
+						</label>
+
+						<Controller
+							control={control}
+							name='state'
+							render={({ field }) => (
+								<Select
+									{...field}
+									options={states.map(
+										({
+											name,
+											code,
+										}) => ({
+											value: code,
+											label: name,
+										}),
+									)}
+									placeholder='Select a State...'
+								/>
+							)}
+						/>
+					</WrapperInput>
+
+					<WrapperInput>
+						<label htmlFor='zipCode'>
+							Zip Code
+						</label>
+						<input
+							{...register('zipCode', {
+								required: errorEmptyField,
+								pattern: /^\d{5}-\d{4}$/i,
+							})}
+							type='text'
+							id='zipCode'
+							name='zipCode'
+						/>
+						{errors.zipCode && (
+							<ErrorMessage>
+								{errors.zipCode.message}
+								{errors.zipCode.type ===
+									'pattern' && (
+									<p>
+										Please
+										enter a
+										valid ZIP
+										code in
+										the format
+										:{' '}
+										<span>
+											12345-1234
+										</span>{' '}
+										.
+									</p>
+								)}
+							</ErrorMessage>
+						)}
+					</WrapperInput>
+				</WrapperLine>
+			</WrapperAdress>
+
+			<WrapperDepartment>
 				<label htmlFor='department'>Department</label>
 				<Controller
 					control={control}
@@ -124,14 +226,99 @@ export default function AddEmployeeForm() {
 						/>
 					)}
 				/>
-			</div>
+			</WrapperDepartment>
 
-			<button type='submit'>Submit</button>
-		</form>
+			<Button type='submit'>Save</Button>
+		</Form>
 	)
 }
 
-const WrapperInputs = styled.div`
+const Form = styled.form`
+	margin: 32px 20px 20px;
 	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	justify-content: center;
+`
+
+const WrapperLine = styled.div`
+	display: flex;
+	flex: 1;
+	justify-content: space-between;
+	align-items: center;
+	gap: 8%;
+`
+
+const WrapperInput = styled.div`
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	align-items: flex-start;
+
+	label {
+		margin: 0 0 8px 0;
+		font-weight: 300;
+	}
+
+	input {
+		width: -webkit-fill-available;
+		border: 1px solid ${colors.secondary};
+		border-radius: 4px;
+		padding: 0.5rem;
+		font-family: inherit;
+
+		&:focus {
+			outline: 2px solid ${colors.tertiary};
+		}
+
+		&:hover {
+			border: 2px solid ${colors.secondary};
+		}
+	}
+`
+
+const WrapperAdress = styled.fieldset`
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	justify-content: center;
+
+	border: 0.5px solid rgb(${colors.fieldset});
+	border-radius: 4px;
+	padding-bottom: 1rem;
+
+	legend {
+		text-align: left;
+		font-weight: 400;
+		margin: 0 0 0.5rem 0.5rem;
+	}
+`
+
+const WrapperDepartment = styled(WrapperInput)`
+	justify-content: flex-start;
+`
+
+const ErrorMessage = styled.p`
+	color: ${colors.error};
+	font-size: 0.8rem;
+	margin: 0.2rem 0 0 0;
+	text-align: left;
+
+	span {
+		font-weight: 500;
+	}
+`
+
+const Button = styled.button`
+	padding: 1rem 2.7rem;
+	font-weight: 500;
+	font-size: 16px;
+	align-self: center;
+	background-color: ${colors.tertiary};
+	color: ${colors.white};
+	border-radius: 4px;
+	width: fit-content;
 	margin-top: 1rem;
+	letter-spacing: 2px;
+	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
 `
