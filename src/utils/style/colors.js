@@ -3,11 +3,13 @@ export const colors = {
 	secondary: '#72842B',
 	tertiary: '#5D6D21',
 
+	accent: '#880044',
+	accentRGB: '136, 0, 68',
+
 	test: '#E2E0DD',
 	testRGB: '226, 224, 221',
 
 	fieldset: '59, 44, 53',
-
 	error: '#DD403A',
 
 	white: '#FFFFFF',

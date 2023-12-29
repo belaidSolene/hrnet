@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Table = ({
+export default function Table({
 	getTableProps,
 	getTableBodyProps,
 	headerGroups,
 	prepareRow,
 	page,
-}) => {
+}) {
 	return (
 		<table {...getTableProps()}>
 			<thead>
@@ -46,6 +46,7 @@ const Table = ({
 					</tr>
 				))}
 			</thead>
+
 			<tbody {...getTableBodyProps()}>
 				{page.map((row) => {
 					prepareRow(row)
@@ -69,5 +70,3 @@ const Table = ({
 		</table>
 	)
 }
-
-export default Table

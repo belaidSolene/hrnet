@@ -29,7 +29,6 @@ export default function EmployeesTable() {
 		getTableBodyProps,
 		headerGroups,
 		prepareRow,
-
 		page,
 	} = useTable(
 		{
@@ -44,7 +43,8 @@ export default function EmployeesTable() {
 
 	return (
 		<Content>
-			EmployeeList
+			<Title>Current Employees</Title>
+
 			<WrapperTable>
 				<Table
 					getTableProps={getTableProps}
@@ -61,6 +61,10 @@ export default function EmployeesTable() {
 const Content = styled.main`
 	margin: 0 auto;
 	text-align: center;
+`
+const Title = styled.h3`
+	font-weight: 500;
+	text-transform: uppercase;
 `
 
 const WrapperTable = styled.div`
