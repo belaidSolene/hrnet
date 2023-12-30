@@ -9,7 +9,7 @@ export default function AddEmployee() {
 			<Content>
 				<Title>Add an employee</Title>
 				<Subtitle>
-					<i class='fa-solid fa-circle-info'></i>
+					<i className='fa-solid fa-circle-info'></i>
 					<span>
 						Please provide the following details
 						to add a new employee.

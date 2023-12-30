@@ -6,6 +6,7 @@ import {
 	formatDepartment,
 } from '../../utils/formattedData/format'
 import { useEmployeeContext } from '../../app/EmployeeContext'
+import { useState } from 'react'
 
 import CustomDatePicker from '../../components/DatePicker'
 import Select from 'react-select'
@@ -16,6 +17,7 @@ import { departments } from '../../data/departments'
 import styled from 'styled-components'
 import { colors } from '../../utils/style/colors'
 import { BaseStyleSelect } from '../../utils/style/globalStyle'
+import ConfirmationModal from '../../components/ConfirmationModale'
 
 export default function AddEmployeeForm() {
 	const {
@@ -29,7 +31,7 @@ export default function AddEmployeeForm() {
 	const errorEmptyField = 'Please fill out this field.'
 	const errorSelectField = 'Please select an option.'
 
-	console.log(errors.zipCode)
+	const [isModalOpen, setModalOpen] = useState(false)
 
 	const submitForm = (data) => {
 		const employee = {
@@ -43,248 +45,298 @@ export default function AddEmployeeForm() {
 			zipCode: data.zipCode,
 			department: formatDepartment(data.department),
 		}
-
+		setModalOpen(true)
 		dispatch({ type: 'ADD_EMPLOYEE', employee })
 	}
 
 	return (
-		<Form onSubmit={handleSubmit(submitForm)} noValidate>
-			{/* First Name and Last Name */}
-			<WrapperLine>
-				<WrapperInput>
-					<label htmlFor='firstName'>First Name</label>
-					<input
-						{...register('firstName', {
-							required: errorEmptyField,
-						})}
-						type='text'
-						id='firstName'
-						name='firstName'
-					/>
-					{errors.firstName && (
-						<ErrorMessage>
-							{errors.firstName.message}
-						</ErrorMessage>
-					)}
-				</WrapperInput>
-
-				<WrapperInput>
-					<label htmlFor='lastName'>Last Name</label>
-					<input
-						{...register('lastName', {
-							required: errorEmptyField,
-						})}
-						type='text'
-						id='lastName'
-						name='lastName'
-					/>
-					{errors.lastName && (
-						<ErrorMessage>
-							{errors.lastName.message}
-						</ErrorMessage>
-					)}
-				</WrapperInput>
-			</WrapperLine>
-
-			{/* Date of Birth and Start Date */}
-			<WrapperLine>
-				<WrapperInput>
-					<label htmlFor='birthDate'>
-						Date of Birth
-					</label>
-					<CustomDatePicker
-						control={control}
-						name={'birthDate'}
-						errorEmptyField={errorEmptyField}
-						StyleErrorMsg={ErrorMessage}
-					/>
-				</WrapperInput>
-
-				<WrapperInput>
-					<label htmlFor='startDate'>Start Date</label>
-					<CustomDatePicker
-						control={control}
-						name={'startDate'}
-						errorEmptyField={errorEmptyField}
-						StyleErrorMsg={ErrorMessage}
-					/>
-				</WrapperInput>
-			</WrapperLine>
-
-			{/*  */}
-			<WrapperAdress>
-				<legend>Address</legend>
-
-				{/* Street, City */}
-				<WrapperLine>
+		<>
+			<Form onSubmit={handleSubmit(submitForm)} noValidate>
+				{/* First Name and Last Name */}
+				<WrapperRow>
 					<WrapperInput>
-						<label htmlFor='street'>Street</label>
-						<input
-							{...register('street', {
-								required: errorEmptyField,
-							})}
-							type='text'
-							id='street'
-							name='street'
-						/>
-						{errors.street && (
-							<ErrorMessage>
-								{errors.street.message}
-							</ErrorMessage>
-						)}
-					</WrapperInput>
-
-					<WrapperInput>
-						<label htmlFor='city'>City</label>
-						<input
-							{...register('city', {
-								required: errorEmptyField,
-							})}
-							type='text'
-							id='city'
-							name='city'
-						/>
-						{errors.city && (
-							<ErrorMessage>
-								{errors.city.message}
-							</ErrorMessage>
-						)}
-					</WrapperInput>
-				</WrapperLine>
-
-				{/* State, Zip Code */}
-				<WrapperLine>
-					<WrapperInput>
-						<label
-							htmlFor='state'
-							className='state-label'
-						>
-							State
-						</label>
-
-						<Controller
-							control={control}
-							name='state'
-							rules={{
-								required: errorSelectField,
-							}}
-							render={({
-								field,
-								fieldState,
-							}) => (
-								<>
-									<Select
-										{...field}
-										options={states.map(
-											({
-												name,
-												code,
-											}) => ({
-												value: code,
-												label: name,
-											}),
-										)}
-										placeholder='Select a State...'
-										styles={
-											StyleStateSelect
-										}
-									/>
-
-									{fieldState.error && (
-										<ErrorMessage>
-											{
-												fieldState
-													.error
-													.message
-											}
-										</ErrorMessage>
-									)}
-								</>
-							)}
-						/>
-					</WrapperInput>
-
-					<WrapperInput>
-						<label htmlFor='zipCode'>
-							Zip Code
+						<label htmlFor='firstName'>
+							First Name
 						</label>
 						<input
-							{...register('zipCode', {
+							{...register('firstName', {
 								required: errorEmptyField,
-								pattern: /^\d{5}-\d{4}$/i,
 							})}
 							type='text'
-							id='zipCode'
-							name='zipCode'
+							id='firstName'
+							name='firstName'
 						/>
-						{errors.zipCode && (
+						{errors.firstName && (
 							<ErrorMessage>
-								{errors.zipCode.message}
-								{errors.zipCode.type ===
-									'pattern' && (
-									<p>
-										Please
-										enter a
-										valid ZIP
-										code in
-										the format
-										:{' '}
-										<span>
-											12345-1234
-										</span>{' '}
-										.
-									</p>
-								)}
-							</ErrorMessage>
-						)}
-					</WrapperInput>
-				</WrapperLine>
-			</WrapperAdress>
-
-			{/* Department */}
-			<WrapperDepartment>
-				<label htmlFor='department'>Department</label>
-				<Controller
-					control={control}
-					name='department'
-					rules={{
-						required: errorSelectField,
-					}}
-					render={({ field, fieldState }) => (
-						<>
-							<Select
-								{...field}
-								options={departments.map(
-									({
-										name,
-										code,
-									}) => ({
-										value: code,
-										label: name,
-									}),
-								)}
-								placeholder='Select a department...'
-								styles={
-									StyleDepartmentSelect
+								{
+									errors.firstName
+										.message
 								}
-							/>
+							</ErrorMessage>
+						)}
+					</WrapperInput>
 
-							{fieldState.error && (
+					<WrapperInput>
+						<label htmlFor='lastName'>
+							Last Name
+						</label>
+						<input
+							{...register('lastName', {
+								required: errorEmptyField,
+							})}
+							type='text'
+							id='lastName'
+							name='lastName'
+						/>
+						{errors.lastName && (
+							<ErrorMessage>
+								{
+									errors.lastName
+										.message
+								}
+							</ErrorMessage>
+						)}
+					</WrapperInput>
+				</WrapperRow>
+
+				{/* Date of Birth and Start Date */}
+				<WrapperRow>
+					<WrapperInput>
+						<label htmlFor='birthDate'>
+							Date of Birth
+						</label>
+						<CustomDatePicker
+							control={control}
+							name={'birthDate'}
+							errorEmptyField={
+								errorEmptyField
+							}
+							StyleErrorMsg={ErrorMessage}
+						/>
+					</WrapperInput>
+
+					<WrapperInput>
+						<label htmlFor='startDate'>
+							Start Date
+						</label>
+						<CustomDatePicker
+							control={control}
+							name={'startDate'}
+							errorEmptyField={
+								errorEmptyField
+							}
+							StyleErrorMsg={ErrorMessage}
+						/>
+					</WrapperInput>
+				</WrapperRow>
+
+				{/*  */}
+				<WrapperAdress>
+					<legend>Address</legend>
+
+					{/* Street, City */}
+					<WrapperRow>
+						<WrapperInput>
+							<label htmlFor='street'>
+								Street
+							</label>
+							<input
+								{...register('street', {
+									required: errorEmptyField,
+								})}
+								type='text'
+								id='street'
+								name='street'
+							/>
+							{errors.street && (
 								<ErrorMessage>
 									{
-										fieldState
-											.error
+										errors
+											.street
 											.message
 									}
 								</ErrorMessage>
 							)}
-						</>
-					)}
-				/>
-			</WrapperDepartment>
+						</WrapperInput>
 
-			<Button type='submit'>Save</Button>
-		</Form>
+						<WrapperInput>
+							<label htmlFor='city'>
+								City
+							</label>
+							<input
+								{...register('city', {
+									required: errorEmptyField,
+								})}
+								type='text'
+								id='city'
+								name='city'
+							/>
+							{errors.city && (
+								<ErrorMessage>
+									{
+										errors
+											.city
+											.message
+									}
+								</ErrorMessage>
+							)}
+						</WrapperInput>
+					</WrapperRow>
+
+					{/* State, Zip Code */}
+					<WrapperRow>
+						<WrapperInput>
+							<label
+								htmlFor='state'
+								className='state-label'
+							>
+								State
+							</label>
+
+							<Controller
+								control={control}
+								name='state'
+								rules={{
+									required: errorSelectField,
+								}}
+								render={({
+									field,
+									fieldState,
+								}) => (
+									<>
+										<Select
+											{...field}
+											options={states.map(
+												({
+													name,
+													code,
+												}) => ({
+													value: code,
+													label: name,
+												}),
+											)}
+											placeholder='Select a State...'
+											styles={
+												StyleStateSelect
+											}
+										/>
+
+										{fieldState.error && (
+											<ErrorMessage>
+												{
+													fieldState
+														.error
+														.message
+												}
+											</ErrorMessage>
+										)}
+									</>
+								)}
+							/>
+						</WrapperInput>
+
+						<WrapperInput>
+							<label htmlFor='zipCode'>
+								Zip Code
+							</label>
+							<input
+								{...register(
+									'zipCode',
+									{
+										required: errorEmptyField,
+										pattern: /^\d{5}-\d{4}$/i,
+									},
+								)}
+								type='text'
+								id='zipCode'
+								name='zipCode'
+							/>
+							{errors.zipCode && (
+								<ErrorMessage>
+									{
+										errors
+											.zipCode
+											.message
+									}
+									{errors.zipCode
+										.type ===
+										'pattern' && (
+										<p>
+											Please
+											enter
+											a
+											valid
+											ZIP
+											code
+											in
+											the
+											format
+											:{' '}
+											<span>
+												12345-1234
+											</span>{' '}
+											.
+										</p>
+									)}
+								</ErrorMessage>
+							)}
+						</WrapperInput>
+					</WrapperRow>
+				</WrapperAdress>
+
+				{/* Department */}
+				<WrapperDepartment>
+					<label htmlFor='department'>
+						Department
+					</label>
+					<Controller
+						control={control}
+						name='department'
+						rules={{
+							required: errorSelectField,
+						}}
+						render={({ field, fieldState }) => (
+							<>
+								<Select
+									{...field}
+									options={departments.map(
+										({
+											name,
+											code,
+										}) => ({
+											value: code,
+											label: name,
+										}),
+									)}
+									placeholder='Select a department...'
+									styles={
+										StyleDepartmentSelect
+									}
+								/>
+
+								{fieldState.error && (
+									<ErrorMessage>
+										{
+											fieldState
+												.error
+												.message
+										}
+									</ErrorMessage>
+								)}
+							</>
+						)}
+					/>
+				</WrapperDepartment>
+
+				<Button type='submit'>Save</Button>
+			</Form>
+			{isModalOpen && (
+				<ConfirmationModal
+					isModalOpen={isModalOpen}
+					setModalOpen={setModalOpen}
+				/>
+			)}
+		</>
 	)
 }
 
@@ -296,7 +348,7 @@ const Form = styled.form`
 	justify-content: center;
 `
 
-const WrapperLine = styled.div`
+const WrapperRow = styled.div`
 	display: flex;
 	flex: 1;
 	justify-content: space-between;

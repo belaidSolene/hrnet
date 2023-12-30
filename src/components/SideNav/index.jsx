@@ -7,12 +7,12 @@ export default function SideNav() {
 		<StyleAside>
 			<nav>
 				<StyledNavLink to='/'>
-					<i class='fa-solid fa-plus'></i>
+					<i className='fa-solid fa-plus'></i>
 					<span>Add an Employee</span>
 				</StyledNavLink>
 
 				<StyledNavLink to='/employees'>
-					<i class='fa-solid fa-list-ul'></i>
+					<i className='fa-solid fa-list-ul'></i>
 					<span>Employees' List</span>
 				</StyledNavLink>
 			</nav>
