@@ -15,6 +15,7 @@ import { departments } from '../../data/departments'
 
 import styled from 'styled-components'
 import { colors } from '../../utils/style/colors'
+import { BaseStyleSelect } from '../../utils/style/globalStyle'
 
 export default function AddEmployeeForm() {
 	const {
@@ -48,6 +49,7 @@ export default function AddEmployeeForm() {
 
 	return (
 		<Form onSubmit={handleSubmit(submitForm)} noValidate>
+			{/* First Name and Last Name */}
 			<WrapperLine>
 				<WrapperInput>
 					<label htmlFor='firstName'>First Name</label>
@@ -84,6 +86,7 @@ export default function AddEmployeeForm() {
 				</WrapperInput>
 			</WrapperLine>
 
+			{/* Date of Birth and Start Date */}
 			<WrapperLine>
 				<WrapperInput>
 					<label htmlFor='birthDate'>
@@ -108,9 +111,11 @@ export default function AddEmployeeForm() {
 				</WrapperInput>
 			</WrapperLine>
 
+			{/*  */}
 			<WrapperAdress>
 				<legend>Address</legend>
 
+				{/* Street, City */}
 				<WrapperLine>
 					<WrapperInput>
 						<label htmlFor='street'>Street</label>
@@ -147,6 +152,7 @@ export default function AddEmployeeForm() {
 					</WrapperInput>
 				</WrapperLine>
 
+				{/* State, Zip Code */}
 				<WrapperLine>
 					<WrapperInput>
 						<label
@@ -235,6 +241,7 @@ export default function AddEmployeeForm() {
 				</WrapperLine>
 			</WrapperAdress>
 
+			{/* Department */}
 			<WrapperDepartment>
 				<label htmlFor='department'>Department</label>
 				<Controller
@@ -331,38 +338,12 @@ const WrapperInput = styled.div`
 	}
 `
 
-const BaseStyleSelect = {
-	control: (provided, state) => ({
-		...provided,
-		border: state.isFocused
-			? 'none'
-			: `1px solid ${colors.secondary}`,
-
-		outline: state.isFocused ? `2px solid ${colors.accent}` : 'none',
-		boxShadow: 'none',
-
-		'&:hover': {
-			border: state.isFocused
-				? 'none'
-				: `2px solid rgba(${colors.accentRGB}, 0.5)`,
-		},
-	}),
-
-	option: (provided, state) => ({
-		...provided,
-		color: '#000',
-		backgroundColor: state.isFocused
-			? `rgba(${colors.accentRGB}, 0.2)`
-			: 'transparent', // Hover style
-	}),
-}
-
 const StyleStateSelect = {
 	...BaseStyleSelect,
 
 	container: (provided) => ({
 		...provided,
-		width: '90%',
+		width: '100%',
 		'padding-left': '8px',
 		'text-align': 'left',
 	}),

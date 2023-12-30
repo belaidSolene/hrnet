@@ -1,4 +1,5 @@
-import React from 'react'
+import styled from 'styled-components'
+import { colors } from '../../../utils/style/colors'
 
 export default function Table({
 	getTableProps,
@@ -8,12 +9,15 @@ export default function Table({
 	page,
 }) {
 	return (
-		<table {...getTableProps()}>
+		<TableWrapper
+			{...getTableProps()}
+			className='display responsive-table'
+		>
 			<thead>
 				{headerGroups.map((headerGroup) => (
 					<tr {...headerGroup.getHeaderGroupProps()}>
 						{headerGroup.headers.map((column) => (
-							<th
+							<HeaderWrapper
 								{...column.getHeaderProps(
 									column.getSortByToggleProps(),
 								)}
@@ -41,17 +45,16 @@ export default function Table({
 								) : (
 									''
 								)}
-							</th>
+							</HeaderWrapper>
 						))}
 					</tr>
 				))}
 			</thead>
-
 			<tbody {...getTableBodyProps()}>
 				{page.map((row) => {
 					prepareRow(row)
 					return (
-						<tr {...row.getRowProps()}>
+						<RowWrapper {...row.getRowProps()}>
 							{row.cells.map((cell) => {
 								return (
 									<td
@@ -63,10 +66,39 @@ export default function Table({
 									</td>
 								)
 							})}
-						</tr>
+						</RowWrapper>
 					)
 				})}
 			</tbody>
-		</table>
+		</TableWrapper>
 	)
 }
+
+const TableWrapper = styled.tbody`
+	display: inline-table;
+	border-radius: 4px;
+	overflow: hidden;
+`
+
+const HeaderWrapper = styled.th`
+	background-color: ${colors.tertiary};
+	color: #ffffff;
+	text-align: center;
+	padding: 20px;
+	font-weight: 500;
+`
+
+const RowWrapper = styled.tr`
+	&:nth-child(even) {
+		background-color: rgba(${colors.primaryRGB}, 0.3);
+	}
+
+	&:hover {
+		background-color: rgba(${colors.accentRGB}, 0.2);
+	}
+
+	td {
+		padding: 13px 20px;
+		text-align: center;
+	}
+`
