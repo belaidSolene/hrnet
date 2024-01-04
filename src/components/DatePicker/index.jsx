@@ -1,3 +1,16 @@
+/**
+ * The 'CustomDatePicker' component is a wrapper around the 'react-datepicker' library
+ * that integrates with the 'react-hook-form' library for form control.
+ *
+ * @component
+ * @param {Object} props - The properties of the 'CustomDatePicker' component.
+ * @param {Object} props.control - The 'control' object from 'react-hook-form' for managing the form state.
+ * @param {string} props.name - The name of the input field in the form.
+ * @param {boolean} props.errorEmptyField - A boolean indicating whether the field is required.
+ * @param {JSX.Element} props.StyleErrorMsg - The JSX element representing the style for error messages.
+ * @returns {JSX.Element} The JSX representation of the 'CustomDatePicker' component.
+ */
+
 import React from 'react'
 
 import { Controller } from 'react-hook-form'
@@ -13,6 +26,7 @@ const CustomDatePicker = ({
 	errorEmptyField,
 	StyleErrorMsg,
 }) => {
+	// JSX structure defining the CustomDatePicker component layout
 	return (
 		<Controller
 			control={control}

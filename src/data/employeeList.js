@@ -1,3 +1,12 @@
+/**
+ * The 'employeesList' array contains objects representing employee data.
+ *
+ * Each employee object has properties such as 'firstName', 'lastName', 'birthDate', 'startDate',
+ * 'street', 'city', 'state', 'zipCode', and 'department'.
+ *
+ * @type {Array}
+ * @constant
+ */
 export const employeesList = [
 	{
 		firstName: 'John',

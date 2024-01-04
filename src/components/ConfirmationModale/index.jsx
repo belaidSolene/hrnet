@@ -1,76 +1,41 @@
+/**
+ * The 'ConfirmationModal' component is a modal used to confirm the creation of a new employee.
+ * It displays a success message with an icon when an employee is created.
+ * This component utilizes the 'easy-peasy-modal-react' library for modal functionality.
+ *
+ * @component
+ * @param {Object} props - The properties of the 'ConfirmationModal' component.
+ * @param {boolean} props.isOpen - A boolean indicating whether the modal is open or closed.
+ * @param {function} props.setIsOpen - A function to set the state and control the modal's visibility.
+ * @returns {JSX.Element} The JSX representation of the 'ConfirmationModal' component.
+ */
+
+import React from 'react'
+import Modal from 'easy-peasy-modal-react'
+
+// Importing necessary dependencies for styling
 import styled from 'styled-components'
-import { colors } from '../../utils/style/colors'
-function Modal({ isOpen, onClose, children, style }) {
-	if (!isOpen) {
-		return null
-	}
-	const handleClickOutside = (e) => {
-		if (e.target === e.currentTarget) {
-			onClose()
-		}
-	}
 
-	const ModalContainer = styled(style)`
-		position: fixed;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		overflow: hidden;
-		z-index: 101;
-		background-color: white;
-		padding: 20px;
-	`
-	const ModalBg = styled.div`
-		position: fixed;
-		z-index: 100;
-		left: 0;
-		top: 0;
-		height: 100%;
-		width: 100%;
-		overflow: auto;
-		background-color: rgba(${colors.fieldset}, 0.5);
-	`
-
-	const CloseButton = styled.button`
-		position: absolute;
-		top: 0;
-		right: 0;
-		margin: 15px;
-	`
-
-	return (
-		<ModalBg onClick={handleClickOutside}>
-			<ModalContainer>
-				<CloseButton onClick={onClose}>X</CloseButton>
-				{children}
-			</ModalContainer>
-		</ModalBg>
-	)
-}
-
-export default function ConfirmationModal({ isModalOpen, setModalOpen }) {
+const ConfirmationModal = ({ isOpen, setIsOpen }) => {
 	const closeModal = () => {
-		setModalOpen(false)
+		setIsOpen(false)
 	}
 
+	// JSX structure defining the ConfirmationModal component layout
 	return (
-		<Modal isOpen={isModalOpen} onClose={closeModal} style={MyModal}>
+		<Modal isOpen={isOpen} onClose={closeModal}>
 			<ModalContent>
 				<h2>Employee Created</h2>
 				<p>
-					<i class='fa-solid fa-people-group'></i> A
-					new colleague has joined our team!
+					<i className='fa-solid fa-people-group'></i>{' '}
+					A new colleague has joined our team!
 				</p>
 			</ModalContent>
 		</Modal>
 	)
 }
 
-const MyModal = styled.div`
-	width: 400px;
-	height: 200px;
-	border-radius: 7px;
-`
+// Styled components
 const ModalContent = styled.div`
 	width: 100%;
 	margin-bottom: 20px;
@@ -91,3 +56,5 @@ const ModalContent = styled.div`
 		width: 100%;
 	}
 `
+
+export default ConfirmationModal

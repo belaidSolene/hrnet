@@ -1,6 +1,16 @@
+/**
+ * The 'Error' component displays a 404 - Page Not Found error message.
+ * It includes a title and a descriptive text.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX representation of the 'Error' component.
+ */
+
+// Importing necessary dependencies for styling
 import styled from 'styled-components'
 
 export default function Error() {
+	// JSX structure defining the Error component layout
 	return (
 		<Wrapper>
 			<Content>
@@ -13,6 +23,7 @@ export default function Error() {
 	)
 }
 
+// Styled components
 const Wrapper = styled.div`{
     width: 100%;
     height: 100vh;

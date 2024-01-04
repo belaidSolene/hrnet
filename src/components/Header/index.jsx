@@ -1,9 +1,18 @@
+/**
+ * The 'Header' component represents the header section of the application.
+ * It includes the logo, project name, and additional styling using styled-components.
+ *
+ * @component
+ */
+
 import logo from '../../assets/logo.png'
 
+// Importing necessary dependencies for styling
 import styled from 'styled-components'
 import { colors } from '../../utils/style/colors'
 
 export default function Header() {
+	// JSX structure defining the Header component layout
 	return (
 		<Wrapper>
 			<WrapperLogo>
@@ -16,8 +25,9 @@ export default function Header() {
 	)
 }
 
+// Styled components
 const Wrapper = styled.header`
-	border-bottom: 2px solid rgb(${colors.testRGB});
+	border-bottom: 2px solid rgb(${colors.borderHeader});
 
 	height: 65px;
 	display: flex;

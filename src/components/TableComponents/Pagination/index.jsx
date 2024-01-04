@@ -1,3 +1,22 @@
+/**
+ * The 'Pagination' component provides navigation controls for paginated data.
+ * It displays information about the current range of entries being shown and
+ * allows users to navigate to the previous or next page.
+ *
+ * @component
+ * @param {Object} props - The properties of the 'Pagination' component.
+ * @param {number} props.pageIndex - The current page index.
+ * @param {number} props.pageSize - The number of entries per page.
+ * @param {Array} props.pageOptions - An array containing available page options.
+ * @param {function} props.nextPage - A function to navigate to the next page.
+ * @param {function} props.previousPage - A function to navigate to the previous page.
+ * @param {boolean} props.canNextPage - A boolean indicating if there is a next page.
+ * @param {boolean} props.canPreviousPage - A boolean indicating if there is a previous page.
+ * @param {number} props.dataLength - The total number of entries in the data set.
+ * @returns {JSX.Element} The JSX representation of the 'Pagination' component.
+ */
+
+// Importing necessary dependencies for styling
 import styled from 'styled-components'
 import { colors } from '../../../utils/style/colors'
 
@@ -11,6 +30,7 @@ export default function Pagination({
 	canPreviousPage,
 	dataLength,
 }) {
+	// JSX structure defining the Pagination component layout
 	return (
 		<PaginationWrapper>
 			<ShowEntries>
@@ -40,6 +60,7 @@ export default function Pagination({
 	)
 }
 
+// Styled components
 const PaginationWrapper = styled.div`
 	display: flex;
 	justify-content: space-between;

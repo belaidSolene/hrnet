@@ -1,5 +1,19 @@
+/**
+ * The utility functions provided in this module are used for formatting various types of data.
+ * These functions handle formatting of dates, strings, and values selected from dropdowns.
+ *
+ * @module formattedData/format
+ */
+
+// External dependency
 import { format } from 'date-fns'
 
+/**
+ * Formats a date object into 'yyyy-MM-dd' format.
+ *
+ * @param {Date} date - The date object to be formatted.
+ * @returns {string|null} The formatted date string or null if an error occurs.
+ */
 export const formatDate = (date) => {
 	try {
 		if (date instanceof Date) {
@@ -15,6 +29,12 @@ export const formatDate = (date) => {
 	}
 }
 
+/**
+ * Capitalizes the first letter of a string and converts the rest to lowercase.
+ *
+ * @param {string} str - The string to be formatted.
+ * @returns {string|null} The formatted string or null if an error occurs.
+ */
 export const formatString = (str) => {
 	try {
 		if (str && str.length > 0) {
@@ -30,6 +50,12 @@ export const formatString = (str) => {
 	}
 }
 
+/**
+ * Extracts the label from a select value object representing a department.
+ *
+ * @param {Object} selectValue - The select value object.
+ * @returns {string|null} The formatted department label or null if an error occurs.
+ */
 export const formatDepartment = (selectValue) => {
 	try {
 		if (
@@ -48,6 +74,12 @@ export const formatDepartment = (selectValue) => {
 	}
 }
 
+/**
+ * Extracts the value from a select value object representing a state.
+ *
+ * @param {Object} selectValue - The select value object.
+ * @returns {string|null} The formatted state value or null if an error occurs.
+ */
 export const formatState = (selectValue) => {
 	try {
 		if (

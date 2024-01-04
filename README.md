@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+# HRnet Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Project 14 from OpenClassrooms Developer Application - JavaScript React Track
 
-## Available Scripts
+This project aims to modernize WealthHealth's internal web application, HRnet, which is currently built with jQuery, by transforming it into a modern and efficient React application. The primary goal is to address performance and stability issues associated with the use of outdated jQuery plugins while enhancing the maintainability of the application. As part of this effort, a Modal library was specifically developed to replace the jQuery plugin used in the initial version of the project.
 
-In the project directory, you can run:
+**Initial Project** :
+[GitHub Link for Initial Project](https://github.com/OpenClassrooms-Student-Center/P12_Front-end)
 
-### `npm start`
+## Download and Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Clone the HRnet GitHub repository** using the following command in your terminal:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+      ```bash
+      git clone https://github.com/belaidSolene/hrnet.git
 
-### `npm test`
+      ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Navigate to the project directory using the following command:
 
-### `npm run build`
+      ```bash
+      cd hrnet
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+      ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Install project dependencies by running the following command:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+      ```bash
+      npm i
 
-### `npm run eject`
+      ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. To launch the HRnet-Wealth-Health application, use the following command:
+      ```bash
+      npm start
+      ```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Link to the project's Modal library ➡️:
+[easy-peasy-modal-react](https://www.npmjs.com/package/easy-peasy-modal-react?activeTab=readme)

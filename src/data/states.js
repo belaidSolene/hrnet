@@ -1,3 +1,11 @@
+/**
+ * The 'states' array contains objects representing various states in the United States.
+ *
+ * Each state object has 'name' and 'code' properties.
+ *
+ * @type {Array}
+ * @constant
+ */
 export const states = [
 	{
 		name: 'Alabama',

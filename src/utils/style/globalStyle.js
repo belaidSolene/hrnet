@@ -5,7 +5,7 @@ export const BaseStyleSelect = {
 		...provided,
 		border: state.isFocused
 			? 'none'
-			: `1px solid ${colors.secondary}`,
+			: `1px solid rgb(${colors.fieldset})`,
 
 		outline: state.isFocused ? `2px solid ${colors.accent}` : 'none',
 		boxShadow: 'none',
@@ -21,9 +21,9 @@ export const BaseStyleSelect = {
 		...provided,
 		padding: '8px',
 
-		'backdrop-filter':
+		backdropFilter:
 			'blur(12px)' /* Ajustez la valeur selon vos besoins */,
-		'background-color': 'rgba(255, 255, 255, 0.8)',
+		backgroundColor: 'rgba(255, 255, 255, 0.8)',
 	}),
 
 	option: (provided, state) => ({
@@ -33,6 +33,6 @@ export const BaseStyleSelect = {
 			? `rgba(${colors.accentRGB}, 0.2)`
 			: 'transparent', // Hover style
 
-		'border-radius': '4px',
+		borderRadius: '4px',
 	}),
 }

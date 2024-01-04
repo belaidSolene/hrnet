@@ -1,9 +1,19 @@
+/**
+ * The 'AddEmployee' component is the homepage and provides a form to add a new employee.
+ * It includes a title, subtitle with information, and the 'AddEmployeeForm'.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX representation of the 'AddEmployee' component.
+ */
+
 import AddEmployeeForm from '../../features/AddEmployeeForm'
 
+// Importing necessary dependencies for styling
 import styled from 'styled-components'
 import { colors } from '../../utils/style/colors'
 
 export default function AddEmployee() {
+	// JSX structure defining the AddEmployee component layout
 	return (
 		<Background>
 			<Content>
@@ -21,6 +31,7 @@ export default function AddEmployee() {
 	)
 }
 
+// Styled components
 const Background = styled.main`
 	background-color: ${colors.primary};
 	padding: 4rem;

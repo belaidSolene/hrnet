@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+// Importing custom page components
 import Root from '../pages/Root'
 import AddEmployee from '../pages/AddEmployee'
 import EmployeesTable from '../pages/EmployeesTable'

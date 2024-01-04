@@ -1,3 +1,17 @@
+/**
+ * The 'EmployeeContext' is a context created to manage the state and actions related to employee data.
+ * It provides a provider component ('EmployeeProvider') to wrap components that need access to the employee context.
+ * The context includes an initial state with a list of employees and a reducer function to handle state changes.
+ * The 'useEmployeeContext' hook is created to easily access the context values in components.
+ *
+ * @example
+ * // To use in a component:
+ * const { state, dispatch } = useEmployeeContext();
+ * // Access the state and dispatch functions related to employees.
+ *
+ * @component
+ */
+
 import React, { createContext, useContext, useReducer } from 'react'
 
 import { employeesList } from '../data/employeeList'
@@ -25,7 +39,14 @@ const reducer = (state, action) => {
 	}
 }
 
-// Create the EmployeeProvider component using the context and reducer
+/**
+ * The 'EmployeeProvider' component is a provider that wraps components requiring access to the employee context.
+ * It uses the 'EmployeeContext' and 'useReducer' to manage the state and actions related to employees.
+ *
+ * @param {Object} props - The properties passed to the 'EmployeeProvider'.
+ * @param {ReactNode} props.children - The child components to be wrapped by the 'EmployeeProvider'.
+ * @returns {ReactNode} The wrapped child components with access to the employee context.
+ */
 export const EmployeeProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(reducer, initialState)
 

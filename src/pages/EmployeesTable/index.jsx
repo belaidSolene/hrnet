@@ -1,3 +1,11 @@
+/**
+ * The 'EmployeesTable' component displays a table of current employees with sorting, searching, and pagination
+ * using the 'react-table' library.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX representation of the 'EmployeesTable' component.
+ */
+
 import { useMemo } from 'react'
 
 import { useEmployeeContext } from '../../app/EmployeeContext'
@@ -16,6 +24,7 @@ import OptionLengthTable from '../../components/TableComponents/OptionLenghtTabl
 import Table from '../../components/TableComponents/Table'
 import Pagination from '../../components/TableComponents/Pagination'
 
+// Importing necessary dependencies for stylin
 import styled from 'styled-components'
 
 export default function EmployeesTable() {
@@ -53,6 +62,7 @@ export default function EmployeesTable() {
 
 	const { globalFilter, pageIndex, pageSize } = state
 
+	// JSX structure defining the EmployeesTable component layout
 	return (
 		<Content>
 			<Title>Current Employees</Title>
@@ -92,6 +102,7 @@ export default function EmployeesTable() {
 	)
 }
 
+// Styled components
 const Content = styled.main`
 	margin: 0 auto;
 	text-align: center;
@@ -111,6 +122,6 @@ const OptionAndSearch = styled.div`
 	margin: 0 0 12px;
 `
 
-const WrapperTable = styled.div`
+const WrapperTable = styled.section`
 	margin: 10px 20px 20px;
 `

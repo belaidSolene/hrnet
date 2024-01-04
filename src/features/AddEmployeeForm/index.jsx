@@ -1,3 +1,15 @@
+/**
+ * The 'AddEmployeeForm' component provides a form to add a new employee.
+ * It includes form fields for first name, last name, date of birth, start date,
+ * address (street, city, state, zip code), and department.
+ * The form uses React Hook Form for form management and validation.
+ *
+ * @component
+ * @returns {JSX.Element} The JSX representation of the 'AddEmployeeForm' component.
+ */
+
+// Importing necessary dependencies
+import React from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import {
 	formatString,
@@ -8,18 +20,22 @@ import {
 import { useEmployeeContext } from '../../app/EmployeeContext'
 import { useState } from 'react'
 
+// Importing necessary dependencies for the CustomDatePicker and Select component
 import CustomDatePicker from '../../components/DatePicker'
 import Select from 'react-select'
 
+// Importing necessary data
 import { states } from '../../data/states'
 import { departments } from '../../data/departments'
 
+// Importing necessary dependencies for styling
 import styled from 'styled-components'
 import { colors } from '../../utils/style/colors'
 import { BaseStyleSelect } from '../../utils/style/globalStyle'
 import ConfirmationModal from '../../components/ConfirmationModale'
 
 export default function AddEmployeeForm() {
+	// React Hook Form setup
 	const {
 		register,
 		control,
@@ -28,12 +44,16 @@ export default function AddEmployeeForm() {
 	} = useForm()
 	const { dispatch } = useEmployeeContext()
 
+	// Error messages
 	const errorEmptyField = 'Please fill out this field.'
 	const errorSelectField = 'Please select an option.'
 
-	const [isModalOpen, setModalOpen] = useState(false)
+	// Confirmation modal state
+	const [isConfirmationOpen, setIsConfirmationOpen] = useState(false)
 
+	// Form submission handler
 	const submitForm = (data) => {
+		// Format and prepare employee data
 		const employee = {
 			firstName: formatString(data.firstName),
 			lastName: formatString(data.lastName),
@@ -45,15 +65,20 @@ export default function AddEmployeeForm() {
 			zipCode: data.zipCode,
 			department: formatDepartment(data.department),
 		}
-		setModalOpen(true)
+
+		// Open confirmation modal and dispatch employee data to context
+		setIsConfirmationOpen(true)
 		dispatch({ type: 'ADD_EMPLOYEE', employee })
 	}
 
+	// JSX structure defining the SideNav component layout
 	return (
 		<>
+			{/* Employee information form */}
 			<Form onSubmit={handleSubmit(submitForm)} noValidate>
 				{/* First Name and Last Name */}
 				<WrapperRow>
+					{/* First Name */}
 					<WrapperInput>
 						<label htmlFor='firstName'>
 							First Name
@@ -76,6 +101,7 @@ export default function AddEmployeeForm() {
 						)}
 					</WrapperInput>
 
+					{/* Last Name */}
 					<WrapperInput>
 						<label htmlFor='lastName'>
 							Last Name
@@ -101,6 +127,7 @@ export default function AddEmployeeForm() {
 
 				{/* Date of Birth and Start Date */}
 				<WrapperRow>
+					{/* Date of Birth */}
 					<WrapperInput>
 						<label htmlFor='birthDate'>
 							Date of Birth
@@ -115,6 +142,7 @@ export default function AddEmployeeForm() {
 						/>
 					</WrapperInput>
 
+					{/* Start Date */}
 					<WrapperInput>
 						<label htmlFor='startDate'>
 							Start Date
@@ -130,12 +158,13 @@ export default function AddEmployeeForm() {
 					</WrapperInput>
 				</WrapperRow>
 
-				{/*  */}
+				{/* Adress Section */}
 				<WrapperAdress>
 					<legend>Address</legend>
 
-					{/* Street, City */}
+					{/* Street and City */}
 					<WrapperRow>
+						{/* Street */}
 						<WrapperInput>
 							<label htmlFor='street'>
 								Street
@@ -159,6 +188,7 @@ export default function AddEmployeeForm() {
 							)}
 						</WrapperInput>
 
+						{/* City */}
 						<WrapperInput>
 							<label htmlFor='city'>
 								City
@@ -183,8 +213,9 @@ export default function AddEmployeeForm() {
 						</WrapperInput>
 					</WrapperRow>
 
-					{/* State, Zip Code */}
+					{/* State and Zip Code */}
 					<WrapperRow>
+						{/* State */}
 						<WrapperInput>
 							<label
 								htmlFor='state'
@@ -193,6 +224,7 @@ export default function AddEmployeeForm() {
 								State
 							</label>
 
+							{/* React Select for State dropdown */}
 							<Controller
 								control={control}
 								name='state'
@@ -235,6 +267,7 @@ export default function AddEmployeeForm() {
 							/>
 						</WrapperInput>
 
+						{/* Zip Code */}
 						<WrapperInput>
 							<label htmlFor='zipCode'>
 								Zip Code
@@ -261,7 +294,7 @@ export default function AddEmployeeForm() {
 									{errors.zipCode
 										.type ===
 										'pattern' && (
-										<p>
+										<span>
 											Please
 											enter
 											a
@@ -276,7 +309,7 @@ export default function AddEmployeeForm() {
 												12345-1234
 											</span>{' '}
 											.
-										</p>
+										</span>
 									)}
 								</ErrorMessage>
 							)}
@@ -289,6 +322,8 @@ export default function AddEmployeeForm() {
 					<label htmlFor='department'>
 						Department
 					</label>
+
+					{/* React Select for Department dropdown */}
 					<Controller
 						control={control}
 						name='department'
@@ -328,18 +363,22 @@ export default function AddEmployeeForm() {
 					/>
 				</WrapperDepartment>
 
+				{/* Submit Button */}
 				<Button type='submit'>Save</Button>
 			</Form>
-			{isModalOpen && (
+
+			{/* Confirmation Modal */}
+			{isConfirmationOpen && (
 				<ConfirmationModal
-					isModalOpen={isModalOpen}
-					setModalOpen={setModalOpen}
+					isOpen={isConfirmationOpen}
+					setIsOpen={setIsConfirmationOpen}
 				/>
 			)}
 		</>
 	)
 }
 
+// Styled components
 const Form = styled.form`
 	margin: 32px 20px 20px;
 	display: flex;
@@ -369,7 +408,7 @@ const WrapperInput = styled.div`
 
 	input {
 		width: 90%;
-		border: 1px solid ${colors.secondary};
+		border: 1px solid rgb(${colors.fieldset});
 		border-radius: 4px;
 		padding: 0.5rem;
 		margin-left: 8px;
@@ -396,8 +435,8 @@ const StyleStateSelect = {
 	container: (provided) => ({
 		...provided,
 		width: '100%',
-		'padding-left': '8px',
-		'text-align': 'left',
+		paddingLeft: '8px',
+		textAlign: 'left',
 	}),
 }
 
@@ -407,8 +446,8 @@ const StyleDepartmentSelect = {
 	container: (provided) => ({
 		...provided,
 		width: '100%',
-		'padding-left': '8px',
-		'text-align': 'left',
+		paddingLeft: '8px',
+		textAlign: 'left',
 	}),
 }
 
@@ -440,7 +479,9 @@ const ErrorMessage = styled.p`
 	text-align: left;
 
 	span {
-		font-weight: 500;
+		span {
+			font-weight: 500;
+		}
 	}
 `
 

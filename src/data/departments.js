@@ -1,3 +1,11 @@
+/**
+ * The 'departments' array contains objects representing various departments.
+ *
+ * Each department object has 'name' and 'code' properties.
+ *
+ * @type {Array}
+ * @constant
+ */
 export const departments = [
 	{
 		name: 'Sales',

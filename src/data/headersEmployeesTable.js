@@ -1,3 +1,12 @@
+/**
+ * The 'headersEmployeesTable' array contains objects representing column headers for the employees table.
+ *
+ * Each object has properties such as 'Header' (displayed column header), 'accessor' (corresponding data property),
+ * and 'sortType' (type of sorting applied to the column, e.g., 'basic').
+ *
+ * @type {Array}
+ * @constant
+ */
 export const headersEmployeesTable = [
 	{
 		Header: 'First Name',

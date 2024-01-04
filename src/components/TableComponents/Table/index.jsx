@@ -1,3 +1,18 @@
+/**
+ * The 'Table' component is used to display tabular data with sorting capabilities
+ * using the 'react-table' library.
+ *
+ * @component
+ * @param {Object} props - The properties of the 'Table' component.
+ * @param {Object} props.getTableProps - The properties for the table element.
+ * @param {Object} props.getTableBodyProps - The properties for the table body element.
+ * @param {Array} props.headerGroups - An array containing the header groups configuration.
+ * @param {function} props.prepareRow - A function to prepare row data.
+ * @param {Array} props.page - An array containing the page data to be displayed.
+ * @returns {JSX.Element} The JSX representation of the 'Table' component.
+ */
+
+// Importing necessary dependencies for styling
 import styled from 'styled-components'
 import { colors } from '../../../utils/style/colors'
 
@@ -9,10 +24,8 @@ export default function Table({
 	page,
 }) {
 	return (
-		<TableWrapper
-			{...getTableProps()}
-			className='display responsive-table'
-		>
+		// JSX structure defining the Table component layout
+		<TableWrapper {...getTableProps()}>
 			<thead>
 				{headerGroups.map((headerGroup) => (
 					<tr {...headerGroup.getHeaderGroupProps()}>
@@ -74,10 +87,12 @@ export default function Table({
 	)
 }
 
+// Styled components
 const TableWrapper = styled.tbody`
 	display: inline-table;
 	border-radius: 4px;
 	overflow: hidden;
+	width: 100%;
 `
 
 const HeaderWrapper = styled.th`
