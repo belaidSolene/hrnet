@@ -88,7 +88,7 @@ export default function Table({
 }
 
 // Styled components
-const TableWrapper = styled.tbody`
+const TableWrapper = styled.table`
 	display: inline-table;
 	border-radius: 4px;
 	overflow: hidden;

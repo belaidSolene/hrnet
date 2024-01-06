@@ -106,7 +106,6 @@ export default function EmployeesTable() {
 const Content = styled.main`
 	margin: 0 auto;
 	text-align: center;
-	flex: 1;
 `
 const Title = styled.h3`
 	font-weight: 500;

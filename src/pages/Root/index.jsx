@@ -17,7 +17,7 @@ import styled from 'styled-components'
 export default function Root() {
 	// JSX structure defining the Root component layout
 	return (
-		<div>
+		<RootContainer>
 			{/* Header component at the top of the layout */}
 			<Header />
 
@@ -26,10 +26,17 @@ export default function Root() {
 				<SideNav />
 				<Outlet />
 			</Content>
-		</div>
+		</RootContainer>
 	)
 }
 
+const RootContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100vh; /* Utilise la hauteur de la fenêtre visible */
+`
+
 const Content = styled.div`
 	display: flex;
+	flex: 1; /* Assure que Content occupe l'espace restant en hauteur */
 `

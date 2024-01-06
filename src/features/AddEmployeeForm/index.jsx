@@ -16,6 +16,7 @@ import {
 	formatDate,
 	formatState,
 	formatDepartment,
+	checkForHTMLTags,
 } from '../../utils/formattedData/format'
 import { useEmployeeContext } from '../../app/EmployeeContext'
 import { useState } from 'react'
@@ -41,7 +42,11 @@ export default function AddEmployeeForm() {
 		control,
 		handleSubmit,
 		formState: { errors },
+		watch,
 	} = useForm()
+
+	const birthDate = watch('birthDate')
+
 	const { dispatch } = useEmployeeContext()
 
 	// Error messages
@@ -53,22 +58,31 @@ export default function AddEmployeeForm() {
 
 	// Form submission handler
 	const submitForm = (data) => {
-		// Format and prepare employee data
-		const employee = {
-			firstName: formatString(data.firstName),
-			lastName: formatString(data.lastName),
-			birthDate: formatDate(data.birthDate),
-			startDate: formatDate(data.startDate),
-			street: data.street,
-			city: data.city,
-			state: formatState(data.state),
-			zipCode: data.zipCode,
-			department: formatDepartment(data.department),
-		}
+		const isHTMLTagsDetected =
+			checkForHTMLTags(data.street) ||
+			checkForHTMLTags(data.city)
 
-		// Open confirmation modal and dispatch employee data to context
-		setIsConfirmationOpen(true)
-		dispatch({ type: 'ADD_EMPLOYEE', employee })
+		if (isHTMLTagsDetected) {
+			// Gérer l'erreur lorsque des tags HTML sont détectés
+			alert('Insertion of HTML tags is forbidden.')
+		} else {
+			/// Format and prepare employee data
+			const employee = {
+				firstName: formatString(data.firstName),
+				lastName: formatString(data.lastName),
+				birthDate: formatDate(data.birthDate),
+				startDate: formatDate(data.startDate),
+				street: data.street,
+				city: data.city,
+				state: formatState(data.state),
+				zipCode: data.zipCode,
+				department: formatDepartment(data.department),
+			}
+
+			// Open confirmation modal and dispatch employee data to context
+			setIsConfirmationOpen(true)
+			dispatch({ type: 'ADD_EMPLOYEE', employee })
+		}
 	}
 
 	// JSX structure defining the SideNav component layout
@@ -86,6 +100,10 @@ export default function AddEmployeeForm() {
 						<input
 							{...register('firstName', {
 								required: errorEmptyField,
+								pattern: {
+									value: /^[a-zA-ZÀ-ÿ-]+$/,
+									message: 'Invalid format',
+								},
 							})}
 							type='text'
 							id='firstName'
@@ -109,6 +127,10 @@ export default function AddEmployeeForm() {
 						<input
 							{...register('lastName', {
 								required: errorEmptyField,
+								pattern: {
+									value: /^[a-zA-ZÀ-ÿ-]+$/,
+									message: 'Invalid format',
+								},
 							})}
 							type='text'
 							id='lastName'
@@ -154,6 +176,7 @@ export default function AddEmployeeForm() {
 								errorEmptyField
 							}
 							StyleErrorMsg={ErrorMessage}
+							birthDate={birthDate}
 						/>
 					</WrapperInput>
 				</WrapperRow>

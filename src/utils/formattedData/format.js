@@ -5,9 +5,6 @@
  * @module formattedData/format
  */
 
-// External dependency
-import { format } from 'date-fns'
-
 /**
  * Formats a date object into 'yyyy-MM-dd' format.
  *
@@ -17,7 +14,10 @@ import { format } from 'date-fns'
 export const formatDate = (date) => {
 	try {
 		if (date instanceof Date) {
-			return format(date, 'yyyy-MM-dd')
+			const year = date.getFullYear()
+			const month = String(date.getMonth() + 1).padStart(2, '0')
+			const day = String(date.getDate()).padStart(2, '0')
+			return `${year}-${month}-${day}`
 		} else {
 			throw new Error(
 				'The provided value is not an instance of Date.',
@@ -95,5 +95,33 @@ export const formatState = (selectValue) => {
 	} catch (error) {
 		console.error(`Error formatting select value: ${error.message}`)
 		return null
+	}
+}
+
+/**
+ * Checks if a string contains HTML tags.
+ *
+ * @param {string} str - The string to be checked.
+ * @returns {boolean|null} True if the string contains HTML tags, false otherwise or null if an error occurs.
+ */
+export const checkForHTMLTags = (str) => {
+	try {
+		if (str && str.length > 0) {
+			const regex = /<\/?[a-z][\s\S]*>/i
+			if (regex.test(str)) {
+				throw new Error(
+					"L'insertion de balises HTML est interdite.",
+				)
+			} else {
+				return false
+			}
+		} else {
+			throw new Error(
+				'The provided string is empty or undefined.',
+			)
+		}
+	} catch (error) {
+		console.error(`Error checking for HTML tags: ${error.message}`)
+		return true
 	}
 }

@@ -25,7 +25,40 @@ const CustomDatePicker = ({
 	name,
 	errorEmptyField,
 	StyleErrorMsg,
+	birthDate,
 }) => {
+	const today = new Date()
+
+	const minBirthDate = new Date(
+		today.getFullYear() - 80,
+		today.getMonth(),
+		today.getDate(),
+	)
+
+	const maxBirthDate = new Date(
+		today.getFullYear() - 18,
+		today.getMonth(),
+		today.getDate(),
+	)
+
+	const minStartDate = birthDate
+		? new Date(
+				birthDate.getFullYear() + 18,
+				birthDate.getMonth(),
+				birthDate.getDate(),
+			)
+		: new Date(
+				today.getFullYear(),
+				today.getMonth() - 3,
+				today.getDate(),
+			)
+
+	const maxStartDate = new Date(
+		today.getFullYear(),
+		today.getMonth() + 3,
+		today.getDate(),
+	)
+
 	// JSX structure defining the CustomDatePicker component layout
 	return (
 		<Controller
@@ -51,8 +84,16 @@ const CustomDatePicker = ({
 						showYearDropdown
 						dropdownMode='select'
 						scrollableYearDropdown
-						minDate={new Date(1950, 0, 1)}
-						maxDate={new Date(2050, 11, 31)}
+						minDate={
+							name === 'birthDate'
+								? minBirthDate
+								: minStartDate
+						}
+						maxDate={
+							name === 'birthDate'
+								? maxBirthDate
+								: maxStartDate
+						}
 						todayButton='Today'
 						dateFormat='yyyy-MM-dd'
 						highlightDates={[new Date()]}

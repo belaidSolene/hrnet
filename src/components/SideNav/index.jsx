@@ -34,6 +34,8 @@ const StyleAside = styled.aside`
 	padding: 0 20px;
 	box-shadow: 4px 0px 2px rgba(0, 0, 0, 0.25);
 	z-index: 1;
+	flex: 0.12;
+	height: 100%;
 `
 
 const StyledNavLink = styled(NavLink)`
